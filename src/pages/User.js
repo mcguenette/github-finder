@@ -12,7 +12,7 @@ function User() {
     const [repos, setRepos] = useState([]);
 
     useEffect(() => {
-        const token = process.env.REACT_APP_GITHUB_TOKEN;
+        const token = '';
         const options = {
             headers: {
                 Authorization: `Bearer ${token}`

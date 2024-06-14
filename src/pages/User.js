@@ -10,20 +10,21 @@ function User() {
     const [repos, setRepos] = useState([]);
 
     useEffect(() => {
-        const TOKEN = process.env.REACT_APP_API_TOKEN;
-        const URL = process.env.REACT_APP_API_URL;
+        const TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
+        const URL = 'https://api.github.com';
         const options = {
             headers: {
                 Authorization: `Bearer ${TOKEN}`
             }
         };
+        console.log('Token:', process.env.REACT_APP_GITHUB_TOKEN);
 
         const fetchUser = async () => {
             try {
-                const userResponse = await axios.get(`${URL}/${username}`, options);
+                const userResponse = await axios.get(`${URL}/users/${username}`, options);
                 setUserData(userResponse.data);
 
-                const reposResponse = await axios.get(`${URL}/${username}/repos?sort=created&per_page=5`, options);
+                const reposResponse = await axios.get(`${URL}/users/${username}/repos?sort=created&per_page=5`, options);
                 setRepos(reposResponse.data);
             } catch (err) {
                 console.error('Error: Not able to get GitHub user info', err);

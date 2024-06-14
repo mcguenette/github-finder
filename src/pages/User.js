@@ -67,7 +67,6 @@ function User() {
                         />
                         <Link to='/' className='secondary' >Back to search</Link>
                     </div>
-
                     <div className='user-repos'>
                         <h3>Recent Repositories</h3>
                         <ul>

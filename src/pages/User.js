@@ -10,7 +10,7 @@ function User() {
     const [repos, setRepos] = useState([]);
 
     useEffect(() => {
-        const token = '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';
+        const token = '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';
         const options = {
             headers: {
                 Authorization: `Bearer ${token}`

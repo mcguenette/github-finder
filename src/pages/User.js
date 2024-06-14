@@ -4,13 +4,16 @@ import { useParams, Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { motion } from 'framer-motion';
 
+require('dotenv').config();
+
 function User() {
     const { username } = useParams();
     const [userData, setUserData] = useState(null);
     const [repos, setRepos] = useState([]);
 
     useEffect(() => {
-        const token = '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';
+        const token = process.env.REACT_APP_GITHUB_TOKEN;
+
         const options = {
             headers: {
                 Authorization: `Bearer ${token}`

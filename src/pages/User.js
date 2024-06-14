@@ -8,8 +8,6 @@ function User() {
     const { username } = useParams();
     const [userData, setUserData] = useState(null);
     const [repos, setRepos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const token = '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';
@@ -26,10 +24,8 @@ function User() {
 
                 const reposResponse = await axios.get(`https://api.github.com/users/${username}/repos?sort=created&per_page=5`, options);
                 setRepos(reposResponse.data);
-                setLoading(false);
             } catch (err) {
-                setError('Error: Not able to get GitHub user info');
-                setLoading(false);
+                console.error('Error: Not able to get GitHub user info');
             }
         };
 
@@ -38,10 +34,10 @@ function User() {
 
     return (
         <motion.section
-        initial={{ x: 300, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -300, opacity: 0 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
+            initial={{ x: 300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -300, opacity: 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
         >
             {userData && (
                 <>
@@ -64,34 +60,33 @@ function User() {
                         </div>
                     </div>
                     <div className='github-button'>
-                    <Button
-                        onClick={() => window.open(userData.html_url, '_blank')}
-                        className='primary'
-                        children='Go to GitHub'
-                    />
-                    <Link to='/' className='secondary' >Back to search</Link>
+                        <Button
+                            onClick={() => window.open(userData.html_url, '_blank')}
+                            className='primary'
+                            children='Go to GitHub'
+                        />
+                        <Link to='/' className='secondary' >Back to search</Link>
                     </div>
 
                     <div className='user-repos'>
                         <h3>Recent Repositories</h3>
-                            <ul>
-                                {repos.map(repo => (
-                                    <div className='repo-card'>
-                                    <li key={repo.id}>
+                        <ul>
+                            {repos.map(repo => (
+                                <div className='repo-card' key={repo.id}>
+                                    <li>
                                         <span>
-                                        <a href={repo.html_url}
-                                            target='_blank'
-                                            rel='noopener noreferrer'>
-                                            {repo.name}
-                                        </a>
-                                        <p className='repo-date'>Updated on {new Date(repo.created_at).toLocaleDateString()}</p>
+                                            <a href={repo.html_url}
+                                                target='_blank'
+                                                rel='noopener noreferrer'>
+                                                {repo.name}
+                                            </a>
+                                            <p className='repo-date'>Updated on {new Date(repo.created_at).toLocaleDateString()}</p>
                                         </span>
                                         <p>{repo.description}</p>
                                     </li>
-                                    </div>
-
-                                ))}
-                            </ul>
+                                </div>
+                            ))}
+                        </ul>
                     </div>
                 </>
             )}

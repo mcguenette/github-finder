@@ -20,10 +20,10 @@ function User() {
 
         const fetchUser = async () => {
             try {
-                const userResponse = await axios.get(`${URL}/users/${username}`, options);
+                const userResponse = await axios.get(`${URL}/${username}`, options);
                 setUserData(userResponse.data);
 
-                const reposResponse = await axios.get(`${URL}/users/${username}/repos?sort=created&per_page=5`, options);
+                const reposResponse = await axios.get(`${URL}/${username}/repos?sort=created&per_page=5`, options);
                 setRepos(reposResponse.data);
             } catch (err) {
                 console.error('Error: Not able to get GitHub user info', err);
